@@ -1,0 +1,6 @@
+#!/bin/bash
+
+g++ -std=c++11 -c $(find ./src -type f -iregex ".*\.cpp") -g $(find ./src -type f -iregex ".*\.c") || { echo 'Compiling object failed' ; exit 1; }
+mv *.o bin/ || { echo 'Moving objects failed' ; exit 1; }
+g++ bin/*.o -o bin/Main.exec -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor || { echo 'Compiling exec failed' ; exit 1; }
+bin/Main.exec || { echo 'Running exec failed' ; exit 1; }
